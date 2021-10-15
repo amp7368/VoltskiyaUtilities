@@ -36,6 +36,7 @@ public class WandToolList implements Listener {
     }
 
 
+    @NotNull
     public static <T extends WandPlayer> T getPlayerWand(@NotNull NamespacedKey name, @NotNull Player player, @NotNull Class<T> clazz) {
         WandPlayer wand = wands.get(name).getOrCreateWand(player);
         return clazz.cast(wand);
@@ -56,6 +57,7 @@ public class WandToolList implements Listener {
                         Action actionDone = event.getAction();
                         for (Action action : wanduse.action()) {
                             if (action == actionDone) {
+                                event.setCancelled(true);
                                 playerWand.dealWithUse(event, wandValue);
                                 break;
                             }

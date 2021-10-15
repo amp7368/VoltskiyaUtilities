@@ -1,0 +1,6 @@
+name: VoltskiyaUtilities
+version: 1.0
+main: voltskiya.apple.utilities.UtilitiesVoltskiyaPlugin
+api-version: 1.17
+authors: [ appleptr16 ]
+softdepend: [ LuckPerms, LoadDependencies, DecodingNms ]

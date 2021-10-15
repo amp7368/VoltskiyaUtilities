@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class InventoryGui implements InventoryHolder {
+public abstract class InventoryGui implements InventoryHolder, OnGuiInventoryEvent {
     protected final List<InventoryGuiPage> pageMap = new ArrayList<>();
 
     protected int page = 0;
@@ -52,10 +52,11 @@ public abstract class InventoryGui implements InventoryHolder {
         }
     }
 
-    private InventoryGuiPage getPage() {
+    protected InventoryGuiPage getPage() {
         return this.tempPage == null ? this.pageMap.get(page) : this.tempPage;
     }
 
+    @Override
     public void onGuiInventory(InventoryClickEvent event) {
         Inventory clickedInventory = event.getClickedInventory();
         if (clickedInventory != null)
@@ -68,6 +69,7 @@ public abstract class InventoryGui implements InventoryHolder {
             }
     }
 
+    @Override
     public void onPlayerInventory(InventoryClickEvent event) {
         InventoryGuiPage p = getPage();
         if (p != null) {
@@ -75,6 +77,18 @@ public abstract class InventoryGui implements InventoryHolder {
             p.dealWithPlayerInventoryClick(event);
         }
         event.setCancelled(true);
+    }
+
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void initialize2() {
+    }
+
+    @Override
+    public void finalizePageItems() {
     }
 
     public interface InventoryGuiPage extends InventoryHolder {

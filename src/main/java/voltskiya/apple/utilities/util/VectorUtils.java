@@ -1,8 +1,11 @@
 package voltskiya.apple.utilities.util;
 
 import org.bukkit.Bukkit;
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -102,5 +105,19 @@ public class VectorUtils {
 
     public static double dot(double a1, double a2, double a3, double b1, double b2, double b3) {
         return a1 * b1 + a2 * b2 + a3 * b3;
+    }
+
+    @Nullable
+    public static Location getHitLocation(@NotNull Location location, @NotNull Vector direction, int maxDistance, FluidCollisionMode fluidCollision, boolean ignorePassable) {
+        @Nullable RayTraceResult raytrace = location.getWorld().rayTraceBlocks(location, direction, maxDistance, fluidCollision, ignorePassable);
+        if (raytrace == null) return null;
+        @Nullable Block hitBlock = raytrace.getHitBlock();
+        if (hitBlock == null) return null;
+        return hitBlock.getLocation();
+    }
+
+    @Nullable
+    public static Location getHitLocation(@NotNull Location locationAndDirection, int maxDistance, FluidCollisionMode fluidCollision, boolean ignorePassable) {
+        return getHitLocation(locationAndDirection, locationAndDirection.getDirection(), maxDistance, fluidCollision, ignorePassable);
     }
 }

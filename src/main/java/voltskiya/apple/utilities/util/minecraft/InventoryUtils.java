@@ -12,11 +12,20 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class InventoryUtils {
+    public static ItemStack makeItem(Material material) {
+        return makeItem(material, 1, (String) null, null);
+    }
+
+    public static ItemStack makeItem(Material material, String name) {
+        return makeItem(material, 1, name, null);
+    }
+
     public static ItemStack makeItem(Material material, int amount, @Nullable String name, @Nullable List<String> lore) {
         final ItemStack item = new ItemStack(material, amount);
 
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setLore(lore);
+        if (lore != null)
+            itemMeta.setLore(lore);
         if (name != null)
             itemMeta.setDisplayName(name);
         item.setItemMeta(itemMeta);

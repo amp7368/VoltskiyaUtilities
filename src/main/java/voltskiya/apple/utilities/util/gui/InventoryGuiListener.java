@@ -16,13 +16,13 @@ public class InventoryGuiListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onInventoryTurretGuiClick(InventoryClickEvent event) {
         final Inventory clickedInventory = event.getClickedInventory();
-        if ((clickedInventory != null && clickedInventory.getHolder() instanceof InventoryGui)) {
+        if ((clickedInventory != null && clickedInventory.getHolder() instanceof OnGuiInventoryEvent gui)) {
             // clicking from the turret
-            ((InventoryGui) clickedInventory.getHolder()).onGuiInventory(event);
+            gui.onGuiInventory(event);
         } else {
             final InventoryHolder topInventory = event.getView().getTopInventory().getHolder();
-            if (topInventory instanceof InventoryGui) {
-                ((InventoryGui) topInventory).onPlayerInventory(event);
+            if (topInventory instanceof OnGuiInventoryEvent gui) {
+                gui.onPlayerInventory(event);
             }
         }
     }
