@@ -29,7 +29,8 @@ public abstract class InventoryGuiPageImplACD<Parent extends GuiPageable> implem
     protected Parent parent;
 
     public InventoryGuiPageImplACD(Parent parent) {
-        this.inventory = Bukkit.createInventory(parent, size(), getName());
+        @SuppressWarnings("deprecation") Inventory inventory = Bukkit.createInventory(parent, size(), getName());
+        this.inventory = inventory;
         this.parent = parent;
         Arrays.fill(clicking, InventoryGuiSlotDoNothingACD.EMPTY);
         for (Method method : getClass().getDeclaredMethods()) {
@@ -143,7 +144,7 @@ public abstract class InventoryGuiPageImplACD<Parent extends GuiPageable> implem
 
     @Override
     public void parentNext(int i) {
-        parent.parentNext(1);
+        parent.parentNext(i);
     }
 
     @Override

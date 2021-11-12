@@ -91,6 +91,10 @@ public abstract class InventoryGui implements InventoryHolder, OnGuiInventoryEve
     public void finalizePageItems() {
     }
 
+    @Override
+    public void showPageItems(@Nullable List<HumanEntity> viewers) {
+    }
+
     public interface InventoryGuiPage extends InventoryHolder {
         String getName();
 

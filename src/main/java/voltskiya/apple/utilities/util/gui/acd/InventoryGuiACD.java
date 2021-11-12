@@ -14,12 +14,11 @@ import java.util.List;
 
 public class InventoryGuiACD implements OnGuiInventoryEvent, GuiPageable {
     protected final List<OnGuiInventoryEvent> pageMap = new ArrayList<>();
-    private final List<OnGuiInventoryEvent> subPages = new ArrayList<>();
+    protected final List<OnGuiInventoryEvent> subPages = new ArrayList<>();
 
     protected int page = 0;
 
     public InventoryGuiACD() {
-
     }
 
     protected OnGuiInventoryEvent getPage() {
@@ -73,10 +72,7 @@ public class InventoryGuiACD implements OnGuiInventoryEvent, GuiPageable {
 
     @Override
     public void showPageItems(@Nullable List<HumanEntity> viewers) {
-        final OnGuiInventoryEvent inventoryGuiPage = getPage();
-        for (HumanEntity viewer : new ArrayList<>(viewers == null ? getInventory().getViewers() : viewers)) {
-            viewer.openInventory(inventoryGuiPage.getInventory());
-        }
+        getPage().showPageItems(viewers);
     }
 
     @Override

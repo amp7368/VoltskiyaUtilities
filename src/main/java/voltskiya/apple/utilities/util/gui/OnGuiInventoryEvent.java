@@ -17,6 +17,11 @@ public interface OnGuiInventoryEvent extends InventoryHolder {
 
     void initialize2();
 
+    default void initAll() {
+        initialize();
+        initialize2();
+    }
+
     default void refresh() {
         refresh(null);
     }
@@ -32,11 +37,5 @@ public interface OnGuiInventoryEvent extends InventoryHolder {
 
     void finalizePageItems();
 
-    default void showPageItems(@Nullable List<HumanEntity> viewers) {
-    }
-
-    default void initAll() {
-        initialize();
-        initialize2();
-    }
+    void showPageItems(@Nullable List<HumanEntity> viewers);
 }

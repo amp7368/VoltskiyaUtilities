@@ -5,7 +5,9 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
 public class DistanceUtils {
-    public static double distance(Location aLocation, Location bLocation) {
+
+    public static double distance(@Nullable Location aLocation, @Nullable Location bLocation) {
+        if (aLocation == null || bLocation == null) return Double.MAX_VALUE;
         if (aLocation.getWorld().getUID() != bLocation.getWorld().getUID()) {
             return Double.MAX_VALUE;
         }

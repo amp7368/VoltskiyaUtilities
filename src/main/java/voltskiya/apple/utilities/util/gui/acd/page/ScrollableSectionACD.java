@@ -18,6 +18,7 @@ public class ScrollableSectionACD {
     public ScrollableSectionACD(String name, int[] slotIndexes) {
         this.name = name;
         this.slotIndexes = slotIndexes;
+        this.scrollAmount = 9;
     }
 
     public ScrollableSectionACD(String name, int lower, int upper, int scrollAmount) {
@@ -36,7 +37,7 @@ public class ScrollableSectionACD {
                 i = (i / 9 + 1) * 9 - 1 + lowerMod;
             }
         }
-        this.scrollAmount = upperMod - lowerMod;
+        this.scrollAmount = upperMod - lowerMod + 1;
         this.slotIndexes = slots.stream().mapToInt(Integer::intValue).toArray();
     }
 

@@ -15,4 +15,8 @@ public class SendMessage {
     public static void sendMessageGreen(CommandSender sender, String formatted, Object... args) {
         sender.sendMessage(ChatColor.GREEN + String.format(formatted, args));
     }
+
+    public static void sendMessageAqua(CommandSender sender, String formatted, Object... args) {
+        sender.sendMessage(ChatColor.AQUA + String.format(formatted, args));
+    }
 }
