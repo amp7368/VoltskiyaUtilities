@@ -1,9 +1,9 @@
 package voltskiya.apple.utilities.util.gui;
 
 
-import voltskiya.apple.utilities.UtilitiesVoltskiyaModule;
+import plugin.util.plugin.plugin.util.plugin.PluginManagedModule;
 
-public class PluginInventoryGui extends UtilitiesVoltskiyaModule {
+public class PluginInventoryGui extends PluginManagedModule {
     @Override
     public void enable() {
         new InventoryGuiListener();

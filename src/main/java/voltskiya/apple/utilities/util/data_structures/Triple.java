@@ -55,8 +55,7 @@ public class Triple<X, Y, Z> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Triple) {
-            Triple t = (Triple) obj;
+        if (obj instanceof Triple<?, ?, ?> t) {
             return this.x.equals(t.x) && this.y.equals(t.y) && this.z.equals(t.z);
         }
         return false;

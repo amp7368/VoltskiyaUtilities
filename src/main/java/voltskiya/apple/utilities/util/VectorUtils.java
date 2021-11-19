@@ -9,8 +9,17 @@ import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import voltskiya.apple.utilities.util.data_structures.XYZ;
 
 public class VectorUtils {
+    public static double yaw(Vector vector) {
+        return yaw(vector.getX(), vector.getZ());
+    }
+
+    public static double yaw(double x, double z) {
+        return Math.atan2(z, x) * 180;
+    }
+
     @NotNull
     public static Vector rotateVector(double x1, double z1, double x2, double z2, double y, double theta) {
         double x2Old = x1 + x2;
@@ -55,32 +64,54 @@ public class VectorUtils {
      * @return the new rotated loaction
      */
     public static @NotNull Location rotate(EntityLocation entityLocation, Vector newFacing, Location center, boolean isModifyEntity) {
-        double radius = DistanceUtils.magnitude(
-                entityLocation.x,
-                0,
-                entityLocation.z);
 
-        // do the position rotation
-        double angle = Math.atan2(entityLocation.z, entityLocation.x);
-        angle += Math.atan2(newFacing.getZ(), newFacing.getX());
-        double x = Math.cos(angle) * radius + center.getX();
-        double z = Math.sin(angle) * radius + center.getZ();
+        Location newLocation = rotate(entityLocation.x, entityLocation.y, entityLocation.z,
+                entityLocation.xFacing, entityLocation.zFacing,
+                center.getX(), center.getY(), center.getZ(),
+                center.getDirection().getX(), center.getDirection().getZ());
 
-        // do the facing rotation
-        double theta = Math.atan2(newFacing.getZ(), newFacing.getX());
-        while (theta < 0) theta += Math.PI * 2;
-        Vector newEntityFacing = rotateVector(entityLocation.x, entityLocation.z, entityLocation.xFacing, entityLocation.zFacing, entityLocation.yFacing, theta);
-        Location newLocation = new Location(null, x, entityLocation.y, z);
-        newLocation.setDirection(newEntityFacing);
-
-        @Nullable Entity entity = Bukkit.getEntity(entityLocation.uuid);
-        if (entity != null) {
-            Location changeLocation = entity.getLocation().setDirection(newEntityFacing);
-            changeLocation.setX(x);
-            changeLocation.setZ(z);
-            if (isModifyEntity) entity.teleport(changeLocation);
+        if (isModifyEntity) {
+            @Nullable Entity entity = Bukkit.getEntity(entityLocation.uuid);
+            if (entity != null) {
+                Location changeLocation = entity.getLocation().setDirection(newLocation.getDirection());
+                changeLocation.setX(newLocation.getX());
+                changeLocation.setZ(newLocation.getY());
+                entity.teleport(changeLocation);
+            }
         }
 
+        return newLocation;
+    }
+
+    public static Location rotate(XYZ<Double> relPos, XYZ<Double> relFacing,
+                                  XYZ<Double> center, double rotation) {
+        return rotate(
+                relPos.getX(), relPos.getY(), relPos.getZ(),
+                relFacing.getX(), relFacing.getZ(),
+                center.getX(), center.getY(), center.getZ(),
+                Math.cos(rotation), Math.sin(rotation)
+        );
+    }
+
+    public static Location rotate(double posX, double posY, double posZ,
+                                  double facingX, double facingZ,
+                                  double centerX, double centerY, double centerZ,
+                                  double angleX, double angleZ) {
+        double radius = DistanceUtils.magnitude(posX, 0, posZ);
+
+        // do the position rotation
+        double angle = Math.atan2(posZ, posX);
+        angle += Math.atan2(angleZ, angleX);
+        double x = Math.cos(angle) * radius + centerX;
+        double z = Math.sin(angle) * radius + centerZ;
+        double y = posY + centerY;
+
+        // do the facing rotation
+        double theta = Math.atan2(angleZ, angleZ);
+        while (theta < 0) theta += Math.PI * 2;
+        Vector newEntityFacing = rotateVector(posX, posZ, facingX, facingZ, y, theta);
+        Location newLocation = new Location(null, x, y, z);
+        newLocation.setDirection(newEntityFacing);
         return newLocation;
     }
 

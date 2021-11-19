@@ -1,6 +1,6 @@
 package voltskiya.apple.utilities.util.multiblock;
 
-import voltskiya.apple.utilities.util.minecraft.LocationCoords;
+import voltskiya.apple.utilities.util.trash.LocationCoords;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package voltskiya.apple.utilities.util.action;
 
 public interface RepeatableAction {
-    void tick();
+    void tick(RepeatingActionManager repeatingActionManager);
 
     boolean shouldRun();
 

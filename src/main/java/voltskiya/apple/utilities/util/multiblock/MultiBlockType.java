@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import voltskiya.apple.utilities.util.data_structures.Triple;
 import voltskiya.apple.utilities.util.minecraft.FacingUtils;
-import voltskiya.apple.utilities.util.minecraft.LocationCoords;
+import voltskiya.apple.utilities.util.trash.LocationCoords;
 
 import java.util.*;
 

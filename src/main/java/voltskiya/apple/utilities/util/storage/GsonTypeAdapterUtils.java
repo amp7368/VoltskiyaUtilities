@@ -1,5 +1,6 @@
 package voltskiya.apple.utilities.util.storage;
 
+import apple.utilities.json.gson.GsonBuilderDynamic;
 import apple.utilities.json.gson.serialize.JsonSerializing;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -21,6 +22,10 @@ public class GsonTypeAdapterUtils {
         return gson.registerTypeHierarchyAdapter(Location.class, getLocationTypeAdapter(options));
     }
 
+    public static GsonBuilderDynamic registerLocationTypeAdapter(GsonBuilderDynamic gson, LocationTypeAdapterOptions options) {
+        return gson.registerTypeHierarchyAdapter(Location.class, getLocationTypeAdapter(options));
+    }
+
     @NotNull
     public static LocationJsonTypeAdapter getLocationTypeAdapter(LocationTypeAdapterOptions options) {
         return new LocationJsonTypeAdapter(options);
@@ -30,11 +35,19 @@ public class GsonTypeAdapterUtils {
         return gson.registerTypeHierarchyAdapter(NBTTagCompound.class, getNBTTagTypeAdapter());
     }
 
+    public static GsonBuilderDynamic registerNBTTagTypeAdapter(GsonBuilderDynamic gson) {
+        return gson.registerTypeHierarchyAdapter(NBTTagCompound.class, getNBTTagTypeAdapter());
+    }
+
     public static NBTTagJsonTypeAdapter getNBTTagTypeAdapter() {
         return NBTTagJsonTypeAdapter.get();
     }
 
     public static GsonBuilder registerEntityTypesTypeAdapter(GsonBuilder gson) {
+        return gson.registerTypeHierarchyAdapter(EntityTypes.class, getEntityTypesAdapter());
+    }
+
+    public static GsonBuilderDynamic registerEntityTypesTypeAdapter(GsonBuilderDynamic gson) {
         return gson.registerTypeHierarchyAdapter(EntityTypes.class, getEntityTypesAdapter());
     }
 

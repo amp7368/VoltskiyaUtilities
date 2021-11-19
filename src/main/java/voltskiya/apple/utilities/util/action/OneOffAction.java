@@ -11,7 +11,7 @@ public class OneOffAction implements RepeatableAction {
     }
 
     @Override
-    public void tick() {
+    public void tick(RepeatingActionManager repeatingActionManager) {
         this.runnable.run();
         this.shouldRun = false;
     }

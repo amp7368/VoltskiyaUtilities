@@ -32,7 +32,7 @@ public class RepeatableActionImpl implements RepeatableAction {
     }
 
     @Override
-    public void tick() {
+    public void tick(RepeatingActionManager repeatingActionManager) {
         this.shouldStart = false;
         if (++this.currentTick % tickingInterval == 0) {
             this.shouldRun = getAction().run(this.currentTick, this.ticksToRunFor <= 1);

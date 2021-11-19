@@ -1,8 +1,8 @@
 package voltskiya.apple.utilities.util.wand;
 
-import voltskiya.apple.utilities.UtilitiesVoltskiyaModule;
+import plugin.util.plugin.plugin.util.plugin.PluginManagedModule;
 
-public class PluginWand extends UtilitiesVoltskiyaModule {
+public class PluginWand extends PluginManagedModule {
     private static PluginWand instance;
 
     public static PluginWand get() {

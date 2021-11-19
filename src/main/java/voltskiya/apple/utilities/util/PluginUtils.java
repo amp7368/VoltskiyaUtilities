@@ -1,8 +1,8 @@
 package voltskiya.apple.utilities.util;
 
-import voltskiya.apple.utilities.UtilitiesVoltskiyaModule;
+import plugin.util.plugin.plugin.util.plugin.PluginManagedModule;
 
-public class PluginUtils extends UtilitiesVoltskiyaModule {
+public class PluginUtils extends PluginManagedModule {
     private static PluginUtils instance;
 
     public static PluginUtils get() {

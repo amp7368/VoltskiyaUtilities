@@ -1,4 +1,4 @@
-package voltskiya.apple.utilities.util.minecraft;
+package voltskiya.apple.utilities.util.trash;
 
 import java.util.Objects;
 import java.util.UUID;

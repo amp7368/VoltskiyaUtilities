@@ -44,14 +44,38 @@ public class RepeatingActionManager implements Runnable {
         return this;
     }
 
-    public void startAction(String actionToStart) {
+    public RepeatingActionManager startAction(String actionToStart) {
         @Nullable RepeatableAction action = getAction(actionToStart);
         if (action != null) action.start();
+        return this;
     }
 
-    public void stopAction(String actionToStart) {
+    public RepeatingActionManager startActionAndStart(String actionToStart) {
+        @Nullable RepeatableAction action = getAction(actionToStart);
+        if (action != null) action.start();
+        start();
+        return this;
+    }
+
+    public RepeatingActionManager scheduleAction(String actionToStart, long delay) {
+        @Nullable RepeatableAction action = getAction(actionToStart);
+        if (action != null) Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, action::start, delay);
+        return this;
+    }
+
+    public RepeatingActionManager scheduleActionAndStart(String actionToStart, long delay) {
+        @Nullable RepeatableAction action = getAction(actionToStart);
+        if (action != null) Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            action.start();
+            start();
+        }, delay);
+        return this;
+    }
+
+    public RepeatingActionManager stopAction(String actionToStart) {
         @Nullable RepeatableAction action = getAction(actionToStart);
         if (action != null) action.stop();
+        return this;
     }
 
     @Nullable
@@ -60,6 +84,7 @@ public class RepeatingActionManager implements Runnable {
     }
 
     public RepeatingActionManager start() {
+        if (isRunning) return this;
         this.isRunning = true;
         if (init != null) init.run();
         scheduleSelf(0);
@@ -108,7 +133,7 @@ public class RepeatingActionManager implements Runnable {
             for (Iterator<RepeatableAction> iterator = actions.iterator(); iterator.hasNext(); ) {
                 RepeatableAction action = iterator.next();
                 if (action.shouldRun() || action.shouldStart())
-                    action.tick();
+                    action.tick(this);
                 else
                     iterator.remove();
             }

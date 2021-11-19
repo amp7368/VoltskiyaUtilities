@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import voltskiya.apple.utilities.UtilitiesVoltskiyaPlugin;
-import voltskiya.apple.utilities.util.minecraft.LocationCoords;
+import voltskiya.apple.utilities.util.trash.LocationCoords;
 
 import java.util.List;
 import java.util.Map;
