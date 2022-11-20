@@ -3,6 +3,7 @@ package voltskiya.apple.utilities.action;
 import java.util.function.Supplier;
 
 public class RepeatableActionImpl implements RepeatableAction {
+
     private final String name;
     private Supplier<ActionToRun> actionCreator;
     private final int tickingInterval;
@@ -38,7 +39,7 @@ public class RepeatableActionImpl implements RepeatableAction {
     public void tick(RepeatingActionManager repeatingActionManager) {
         this.shouldStart = false;
         if (++this.currentTick % tickingInterval == 0) {
-            ActionMeta info = new ActionMeta(this.currentTick, this.currentRepeat++, this.ticksToRunFor <= 1);
+            ActionMeta info = new ActionMeta(this.currentTick, this.currentRepeat++, this.ticksToRunFor <= tickingInterval);
             ActionReturn run = getAction().run(info);
             this.shouldRun = run.shouldRun();
         }
@@ -55,8 +56,9 @@ public class RepeatableActionImpl implements RepeatableAction {
     @Override
     public boolean shouldRun() {
         boolean should = this.ticksToRunFor > 0 && shouldRun;
-        if(!should){
-            if (this.actionCreator != null) this.action = null;
+        if (!should) {
+            if (this.actionCreator != null)
+                this.action = null;
         }
         return should;
     }
@@ -76,7 +78,9 @@ public class RepeatableActionImpl implements RepeatableAction {
     @Override
     public void stop() {
         this.shouldRun = false;
-        if (this.actionCreator != null) this.action = null;
+        this.currentTick = 0;
+        if (this.actionCreator != null)
+            this.action = null;
     }
 
     @Override

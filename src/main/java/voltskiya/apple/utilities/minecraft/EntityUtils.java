@@ -1,25 +1,28 @@
 package voltskiya.apple.utilities.minecraft;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
-import voltskiya.apple.utilities.DistanceUtils;
-import voltskiya.apple.utilities.PluginUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
+import voltskiya.apple.utilities.ModuleUtils;
 
 public class EntityUtils {
+
     private static final HashSet<EntityType> hostiles = new HashSet<>();
 
     static {
-        File file = new File(PluginUtils.get().getDataFolder(), "hostileMobs.yml");
+        File file = new File(ModuleUtils.get().getDataFolder(), "hostileMobs.yml");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -39,11 +42,11 @@ public class EntityUtils {
         }
         List<String> hostilesNames = config.getStringList("hostiles");
         for (
-                String hostile : hostilesNames) {
+            String hostile : hostilesNames) {
             try {
                 hostiles.add(EntityType.valueOf(hostile));
             } catch (IllegalArgumentException e) {
-                PluginUtils.get().log(Level.WARNING, hostile + " is not a valid entityType in " + file.getPath());
+                ModuleUtils.get().log(Level.WARNING, hostile + " is not a valid entityType in " + file.getPath());
             }
         }
 
@@ -55,7 +58,7 @@ public class EntityUtils {
 
     public static List<Entity> sortByClosest(Collection<Entity> entities, Location center) {
         return entities.stream()
-                .sorted(Comparator.comparingDouble(e -> DistanceUtils.distance(center, e.getLocation())))
-                .collect(Collectors.toList());
+            .sorted(Comparator.comparingDouble(e -> center.distance(e.getLocation())))
+            .collect(Collectors.toList());
     }
 }

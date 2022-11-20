@@ -1,12 +1,16 @@
 package voltskiya.apple.utilities.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-
 public class RepeatingActionManager implements Runnable {
+
     private final Plugin plugin;
     private final List<RepeatableAction> actions = new ArrayList<>();
     private final List<RepeatableAction> actionsToAdd = new ArrayList<>();
@@ -70,16 +74,18 @@ public class RepeatingActionManager implements Runnable {
 
     public RepeatingActionManager scheduleActionAndStart(String actionToStart, long delay) {
         @Nullable RepeatableAction action = getAction(actionToStart);
-        if (action != null) Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            action.start();
-            start();
-        }, delay);
+        if (action != null)
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                action.start();
+                start();
+            }, delay);
         return this;
     }
 
     public RepeatingActionManager stopAction(String actionToStart) {
         @Nullable RepeatableAction action = getAction(actionToStart);
-        if (action != null) action.stop();
+        if (action != null)
+            action.stop();
         return this;
     }
 
@@ -89,9 +95,11 @@ public class RepeatingActionManager implements Runnable {
     }
 
     public RepeatingActionManager start() {
-        if (phase != ActionPhase.IDLE) return this;
+        if (phase != ActionPhase.IDLE)
+            return this;
         this.phase = ActionPhase.STARTING;
-        if (init != null) init.run();
+        if (init != null)
+            init.run();
         this.phase = ActionPhase.RUNNING;
         scheduleSelf(0);
         return this;
@@ -130,6 +138,7 @@ public class RepeatingActionManager implements Runnable {
             phase = ActionPhase.STOPPING;
             if (this.doFinally != null)
                 this.doFinally.run();
+            actionsAvailable.values().forEach(RepeatableAction::stop);
             phase = ActionPhase.IDLE;
         }
     }

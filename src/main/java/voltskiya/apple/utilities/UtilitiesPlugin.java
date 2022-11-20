@@ -1,14 +1,14 @@
 package voltskiya.apple.utilities;
 
 
-import apple.lib.pmc.ApplePlugin;
-import apple.lib.pmc.PluginModule;
-import voltskiya.apple.utilities.event_listener.PluginListeners;
-
+import com.voltskiya.lib.AbstractModule;
+import com.voltskiya.lib.AbstractVoltPlugin;
 import java.util.Collection;
 import java.util.List;
+import voltskiya.apple.utilities.event_listener.PluginListeners;
 
-public class UtilitiesPlugin extends ApplePlugin {
+public class UtilitiesPlugin extends AbstractVoltPlugin {
+
     private static UtilitiesPlugin instance;
 
     public UtilitiesPlugin() {
@@ -20,10 +20,10 @@ public class UtilitiesPlugin extends ApplePlugin {
     }
 
     @Override
-    public Collection<PluginModule> getModules() {
+    public Collection<AbstractModule> getModules() {
         return List.of(
-                new PluginUtils(),
-                new PluginListeners()
+            new ModuleUtils(),
+            new PluginListeners()
         );
     }
 }

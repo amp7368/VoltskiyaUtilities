@@ -3,6 +3,7 @@ package voltskiya.apple.utilities.action;
 import java.util.function.Supplier;
 
 public class ScheduledAction implements RepeatableAction {
+
     private final String name;
     private final Supplier<Runnable> actionCreator;
     private final int delay;
@@ -81,7 +82,9 @@ public class ScheduledAction implements RepeatableAction {
 
     @Override
     public void stop() {
+        this.currentTick = 0;
         this.shouldRun = false;
+        this.shouldStart = false;
     }
 
     @Override

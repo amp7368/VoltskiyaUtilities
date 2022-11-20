@@ -3,4 +3,4 @@ version: 1.0
 main: voltskiya.apple.utilities.UtilitiesPlugin
 api-version: 1.19
 authors: [ appleptr16 ]
-softdepend: [ LoadDependencies, AppleConfigs, AppleMCUtil, DecodingNms ]
+softdepend: [ LoadDependencies, VoltPluginManager,  DecoingNms ]

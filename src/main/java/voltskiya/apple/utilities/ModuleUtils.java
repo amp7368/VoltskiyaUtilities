@@ -1,11 +1,12 @@
 package voltskiya.apple.utilities;
 
-import apple.lib.pmc.PluginModule;
+import com.voltskiya.lib.AbstractModule;
 
-public class PluginUtils extends PluginModule {
-    private static PluginUtils instance;
+public class ModuleUtils extends AbstractModule {
 
-    public static PluginUtils get() {
+    private static ModuleUtils instance;
+
+    public static ModuleUtils get() {
         return instance;
     }
 
