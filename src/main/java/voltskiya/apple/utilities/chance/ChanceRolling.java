@@ -10,6 +10,7 @@ public class ChanceRolling extends Chance {
     public ChanceRolling(double minRoll, double multiplier) {
         this.minRoll = minRoll;
         this.multiplier = multiplier;
+        this.resetMinChance();
     }
 
     private void resetMinChance() {

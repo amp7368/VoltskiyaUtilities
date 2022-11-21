@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -46,7 +45,7 @@ public class EntityUtils {
             try {
                 hostiles.add(EntityType.valueOf(hostile));
             } catch (IllegalArgumentException e) {
-                ModuleUtils.get().log(Level.WARNING, hostile + " is not a valid entityType in " + file.getPath());
+                ModuleUtils.get().logger().warn(hostile + " is not a valid entityType in " + file.getPath());
             }
         }
 

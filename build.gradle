@@ -47,7 +47,7 @@ configurations {
 }
 
 dependencies {
-    compileOnly 'mc.pmc:VoltPluginManager:3.1-SNAPSHOT'
+    compileOnly 'mc.pmc:VoltPluginManager:3.2-SNAPSHOT'
     compileOnly 'mc.nms:DecodingNms:1.19.2-2.0-SNAPSHOT'
 
     compileOnly 'org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT:remapped-mojang'
