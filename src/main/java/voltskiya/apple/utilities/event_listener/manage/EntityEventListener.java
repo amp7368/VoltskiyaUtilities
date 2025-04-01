@@ -4,6 +4,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 public interface EntityEventListener<Event> {
+
     default boolean shouldHandle(Event event) {
         return true;
     }
@@ -17,6 +18,7 @@ public interface EntityEventListener<Event> {
     boolean shouldRemove();
 
     interface EntityDamageByEntity {
+
         default boolean shouldHandleEntityDamageByEntity(EntityDamageByEntityEvent event) {
             return true;
         }
@@ -31,15 +33,16 @@ public interface EntityEventListener<Event> {
 
         default void registerListenerEntityDamageByEntity(ListenerManaged managed) {
             managed.register(new EntityEventListenerImpl<>(
-                    this::shouldHandleEntityDamageByEntity,
-                    this::isHandleCancelledEntityDamageByEntity,
-                    this::onEventEntityDamageByEntity,
-                    this::shouldRemoveEntityDamageByEntity
+                this::shouldHandleEntityDamageByEntity,
+                this::isHandleCancelledEntityDamageByEntity,
+                this::onEventEntityDamageByEntity,
+                this::shouldRemoveEntityDamageByEntity
             ), EntityDamageByEntityEvent.class);
         }
     }
 
     interface PlayerInteractAtEntity {
+
         default boolean shouldHandlePlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
             return true;
         }
@@ -54,10 +57,10 @@ public interface EntityEventListener<Event> {
 
         default void registerListenerPlayerInteractAtEntity(ListenerManaged managed) {
             managed.register(new EntityEventListenerImpl<>(
-                    this::shouldHandlePlayerInteractAtEntity,
-                    this::isHandleCancelledPlayerInteractAtEntity,
-                    this::onEventPlayerInteractAtEntity,
-                    this::shouldRemovePlayerInteractAtEntity
+                this::shouldHandlePlayerInteractAtEntity,
+                this::isHandleCancelledPlayerInteractAtEntity,
+                this::onEventPlayerInteractAtEntity,
+                this::shouldRemovePlayerInteractAtEntity
             ), PlayerInteractAtEntityEvent.class);
         }
     }

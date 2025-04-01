@@ -1,5 +1,10 @@
 package voltskiya.apple.utilities.event_listener.manage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -9,9 +14,8 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.jetbrains.annotations.NotNull;
 import voltskiya.apple.utilities.UtilitiesPlugin;
 
-import java.util.*;
-
 public class EntityMainListener implements Listener {
+
     private static final Map<UUID, List<ListenerManaged>> listeners = new HashMap<>();
 
     public EntityMainListener() {

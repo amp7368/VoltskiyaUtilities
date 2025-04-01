@@ -5,9 +5,9 @@ import java.util.function.Supplier;
 public class RepeatableActionImpl implements RepeatableAction {
 
     private final String name;
-    private Supplier<ActionToRun> actionCreator;
     private final int tickingInterval;
     private final int ticksToRunForOriginal;
+    private Supplier<ActionToRun> actionCreator;
     private int currentTick;
     private ActionToRun action;
     private int ticksToRunFor;
@@ -38,7 +38,7 @@ public class RepeatableActionImpl implements RepeatableAction {
     @Override
     public void tick(RepeatingActionManager repeatingActionManager) {
         this.shouldStart = false;
-        if (++this.currentTick % tickingInterval == 0) {
+        if (this.currentTick++ % tickingInterval == 0) {
             ActionMeta info = new ActionMeta(this.currentTick, this.currentRepeat++, this.ticksToRunFor <= tickingInterval);
             ActionReturn run = getAction().run(info);
             this.shouldRun = run.shouldRun();

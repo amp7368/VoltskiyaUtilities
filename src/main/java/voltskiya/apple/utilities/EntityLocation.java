@@ -1,11 +1,11 @@
 package voltskiya.apple.utilities;
 
+import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
-import java.util.UUID;
-
 public class EntityLocation {
+
     public final double xFacing;
     public final double yFacing;
     public final double zFacing;

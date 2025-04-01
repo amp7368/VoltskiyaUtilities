@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class BinaryTree<T> {
+
     private BinaryTree<T> left;
     private BinaryTree<T> right;
     private T value;
@@ -142,8 +143,8 @@ public class BinaryTree<T> {
         final int myHash = this.value.hashCode();
         if (myHash == hashCode) {
             return this.value.equals(value) ||
-                    (this.right != null && this.right.contains(value, hashCode)) ||
-                    (this.left != null && this.left.contains(value, hashCode));
+                (this.right != null && this.right.contains(value, hashCode)) ||
+                (this.left != null && this.left.contains(value, hashCode));
         } else if (myHash > hashCode) {
             return this.left != null && this.left.contains(value, hashCode);
         } else {

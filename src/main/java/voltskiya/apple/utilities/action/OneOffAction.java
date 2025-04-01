@@ -1,6 +1,7 @@
 package voltskiya.apple.utilities.action;
 
 public class OneOffAction implements RepeatableAction {
+
     private final Runnable runnable;
     private final String name;
     private boolean shouldRun = false;

@@ -1,13 +1,13 @@
 package voltskiya.apple.utilities.event_listener.manage;
 
-import org.bukkit.event.Cancellable;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.bukkit.event.Cancellable;
 
 public class ListenerManaged {
+
     final List<UUID> entities;
     private final Map<Class<?>, EntityEventListener<?>> eventListeners = new HashMap<>();
 
@@ -32,7 +32,7 @@ public class ListenerManaged {
         if (listener != null) {
             if (listener.shouldRemove()) unregister(type);
             if ((listener.isHandleCancelled() || !event.isCancelled()) &&
-                    listener.shouldHandle(event)) {
+                listener.shouldHandle(event)) {
                 listener.onEvent(event);
             }
         }

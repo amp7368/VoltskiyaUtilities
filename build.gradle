@@ -1,28 +1,26 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
+    id 'com.gradleup.shadow' version '9.0.0-beta11'
+    id 'io.papermc.paperweight.userdev' version '2.0.0-beta.16'
+    id 'xyz.jpenilla.resource-factory-bukkit-convention' version '1.2.0'
 }
 
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://reposilite.appleptr16.com/appleptr16" }
-    maven { url 'https://papermc.io/repo/repository/maven-public/' }
-    maven { url 'https://repo.aikar.co/content/groups/aikar/' }
-    maven {
-        name 'CodeMC'
-        url 'https://repo.codemc.org/repository/maven-public/'
-    }
+    maven { url = 'https://reposilite.appleptr16.com/appleptr16' }
+    maven { url = 'https://repo.codemc.io/repository/maven-public/' }
+    maven { url = 'https://repo.aikar.co/content/groups/aikar/' }
 }
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
 
-project.group groupValue
-project.version versionValue
+project.group = groupValue
+project.version = versionValue
+
 publishing {
     repositories {
         maven {
@@ -39,26 +37,45 @@ publishing {
         }
     }
 }
-configurations {
-    all {
-        resolutionStrategy.cacheDynamicVersionsFor 1, 'seconds'
-        resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+
+configurations.configureEach {
+    resolutionStrategy.cacheDynamicVersionsFor 1, 'seconds'
+    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+}
+
+
+dependencies {
+    // Base server Paper and Spigot
+    paperweight.paperDevBundle('1.21.4-R0.1-SNAPSHOT')
+
+    // appleptr16 Libraries
+    compileOnly 'mc.pmc:voltpluginmanager:3.2-SNAPSHOT'
+    compileOnly 'mc.apple:AppleMCUtil:1.0-SNAPSHOT'
+}
+
+bukkitPluginYaml {
+    name.set 'VoltskiyaUtilities'
+    version.set versionValue
+    main.set 'voltskiya.apple.utilities.UtilitiesPlugin'
+    apiVersion.set mcVersion
+    depend.addAll 'LoadDependencies', 'VoltPluginManager'
+    authors.add 'appleptr16'
+}
+
+tasks.register 'publishPlugin'
+
+shadowJar {
+    archiveClassifier.set ''
+    outputs.upToDateWhen { false }
+    doLast {
+        copy {
+            from shadowJar.getArchiveFile()
+            into file(serverBuildDir)
+        }
     }
 }
 
-dependencies {
-    compileOnly 'mc.pmc:VoltPluginManager:3.2-SNAPSHOT'
-    compileOnly 'mc.nms:DecodingNms:1.19.2-2.0-SNAPSHOT'
-
-    compileOnly 'org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT:remapped-mojang'
-    compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
-
-    compileOnly 'de.tr7zw:item-nbt-api-plugin:2.10.0'
+publishPlugin {
+    dependsOn(shadowJar)
+    dependsOn(publish)
 }
-jar {
-    destinationDirectory.set(file(serverBuildDir))
-}
-task publishAndBuild {
-    dependsOn(jar, publishAllPublicationsToAppleptr16RepoRepository)
-}
-

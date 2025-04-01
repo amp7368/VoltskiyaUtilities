@@ -1,6 +1,7 @@
 package voltskiya.apple.utilities.minecraft;
 
 public class EnchantmentUtils {
+
     public static boolean randomBreakUnbreaking(int unbreakingLevel) {
         return Math.random() <= 1f / (unbreakingLevel + 1);
     }

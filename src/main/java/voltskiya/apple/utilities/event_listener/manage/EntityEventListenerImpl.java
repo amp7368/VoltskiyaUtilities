@@ -5,10 +5,11 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public record EntityEventListenerImpl<Event>(
-        Predicate<Event> shouldHandleFunc,
-        BooleanSupplier isHandleCancelledFunc,
-        Consumer<Event> onEventFunc,
-        BooleanSupplier shouldRemoveFunc) implements EntityEventListener<Event> {
+    Predicate<Event> shouldHandleFunc,
+    BooleanSupplier isHandleCancelledFunc,
+    Consumer<Event> onEventFunc,
+    BooleanSupplier shouldRemoveFunc) implements EntityEventListener<Event> {
+
     @Override
     public boolean shouldHandle(Event event) {
         return shouldHandleFunc.test(event);

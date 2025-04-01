@@ -1,12 +1,12 @@
 package voltskiya.apple.utilities.particle;
 
+import java.awt.geom.Point2D;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import voltskiya.apple.utilities.chance.ChanceShapes;
 
-import java.awt.geom.Point2D;
-
 public class ParticleCircle implements ParticleManager {
+
     private final ChanceShapes random = new ChanceShapes();
     private Location center;
 

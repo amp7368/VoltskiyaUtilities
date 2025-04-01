@@ -1,13 +1,13 @@
 package voltskiya.apple.utilities.serializing;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class EnchantmentSerializeable {
+
     private static final EnchantmentSerializeable EMPTY = new EnchantmentSerializeable();
 
     private final Map<NamespacedKey, Integer> enchantments = new HashMap<>();
